@@ -27,6 +27,7 @@
 #include "macros.h"
 
 #define OVERSAMPLENR 16
+#define OV(N) int16_t((N)*(OVERSAMPLENR))
 
 #define ANY_THERMISTOR_IS(n) (THERMISTORHEATER_0 == n || THERMISTORHEATER_1 == n || THERMISTORHEATER_2 == n || THERMISTORHEATER_3 == n || THERMISTORHEATER_4 == n || THERMISTORBED == n)
 
@@ -96,6 +97,9 @@
 #endif
 #if ANY_THERMISTOR_IS(66) // DyzeDesign 500°C Thermistor
   #include "thermistortable_66.h"
+#endif
+#if ANY_THERMISTOR_IS(67) // R25 = 500 KOhm, beta25 = 3800 K, 4.7 kOhm pull-up, SliceEngineering 450 °C Thermistor
+  #include "thermistortable_67.h"
 #endif
 #if ANY_THERMISTOR_IS(12) // 100k 0603 SMD Vishay NTCS0603E3104FXT (4.7k pullup) (calibrated for Makibox hot bed)
   #include "thermistortable_12.h"
