@@ -35,14 +35,15 @@
   /**
    * Marlin release version identifier
    */
-  #define SHORT_BUILD_VERSION "Ver 1.71.0 KF"
+  //#define SHORT_BUILD_VERSION "Ver 1.71.0 KF"
   //#define SHORT_BUILD_VERSION "Ver 1.71.0 KF HMG3"
+  #define SHORT_BUILD_VERSION "Ver 1.71.0 KF HMG5 SLHE"
 
   /**
    * Verbose version identifier which should contain a reference to the location
    * from where the binary was downloaded or the source code was compiled.
    */
-  #define DETAILED_BUILD_VERSION SHORT_BUILD_VERSION " (Kersey Fabrications)"
+  #define DETAILED_BUILD_VERSION SHORT_BUILD_VERSION " (Mipam Moudry)"
 
   /**
    * The STRING_DISTRIBUTION_DATE represents when the binary file was built,
