@@ -37,7 +37,7 @@
    */
   //#define SHORT_BUILD_VERSION "Ver 1.71.0 KF"
   //#define SHORT_BUILD_VERSION "Ver 1.71.0 KF HMG3"
-  #define SHORT_BUILD_VERSION "Ver 1.71.0 KF HMG5 SLHE"
+  #define SHORT_BUILD_VERSION "Ver 1.71.2 KF HMG5 SLHE"
 
   /**
    * Verbose version identifier which should contain a reference to the location

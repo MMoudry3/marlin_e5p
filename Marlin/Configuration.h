@@ -300,7 +300,7 @@
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
 #define TEMP_SENSOR_4 0
-#define TEMP_SENSOR_BED 1
+#define TEMP_SENSOR_BED 11
 
 // Dummy thermistor constant temperature readings, for use with 998 and 999
 #define DUMMY_THERMISTOR_998_VALUE 25
@@ -339,7 +339,7 @@
 #define HEATER_2_MAXTEMP 275
 #define HEATER_3_MAXTEMP 275
 #define HEATER_4_MAXTEMP 275
-#define BED_MAXTEMP 125
+#define BED_MAXTEMP 130
 
 //===========================================================================
 //============================= PID Settings ================================
@@ -363,11 +363,16 @@
 
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
 
+  // Slice engineering Mosquito
+  #define  DEFAULT_Kp 19.44
+  #define  DEFAULT_Ki 1.35
+  #define  DEFAULT_Kd 70.06
+
   // Ultimaker
   // Stock CR-10S Hotend fan 100%
-  #define  DEFAULT_Kp 14.72
-  #define  DEFAULT_Ki 0.89
-  #define  DEFAULT_Kd 61.22
+  //#define  DEFAULT_Kp 14.72
+  //#define  DEFAULT_Ki 0.89
+  //#define  DEFAULT_Kd 61.22
 
   // MakerGear
   //#define  DEFAULT_Kp 7.0
@@ -393,7 +398,7 @@
 // If your configuration is significantly different than this and you don't understand the issues involved, you probably
 // shouldn't use bed PID until someone else verifies your hardware works.
 // If this is enabled, find your own PID constants below.
-//#define PIDTEMPBED
+#define PIDTEMPBED
 
 //#define BED_LIMIT_SWITCHING
 
@@ -401,16 +406,21 @@
 // all forms of bed control obey this (PID, bang-bang, bang-bang with hysteresis)
 // setting this to anything other than 255 enables a form of PWM to the bed just like HEATER_BED_DUTY_CYCLE_DIVIDER did,
 // so you shouldn't use it unless you are OK with PWM on your bed.  (see the comment on enabling PIDTEMPBED)
-#define MAX_BED_POWER 255 // limits duty cycle to bed; 255=full current
+#define MAX_BED_POWER 200 // limits duty cycle to bed; 255=full current
 
 #if ENABLED(PIDTEMPBED)
 
   //#define PID_BED_DEBUG // Sends debug data to the serial port.
 
+  // Ender 5 Plus - keenovo heater
+  #define  DEFAULT_bedKp 175.71
+  #define  DEFAULT_bedKi 26.48
+  #define  DEFAULT_bedKd 291.47
+
   // Ender 5 Plus
-  #define  DEFAULT_bedKp 481.83
-  #define  DEFAULT_bedKi 69.20
-  #define  DEFAULT_bedKd 838.75
+  //#define  DEFAULT_bedKp 481.83
+  //#define  DEFAULT_bedKi 69.20
+  //#define  DEFAULT_bedKd 838.75
 
   //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   //from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
@@ -711,7 +721,10 @@
 // Hero Me Gen5 Mount
 #define X_PROBE_OFFSET_FROM_EXTRUDER -64  // X offset: -left  +right  [of the nozzle]
 #define Y_PROBE_OFFSET_FROM_EXTRUDER -2   // Y offset: -front +behind [the nozzle]
-#define Z_PROBE_OFFSET_FROM_EXTRUDER 3.95 // Z offset: -below +above  [the nozzle]
+#define Z_PROBE_OFFSET_FROM_EXTRUDER -2.50 // Z offset: -below +above  [the nozzle]
+// 1.5 - original measured
+// 1.38 calculated
+// towards positive, bed is more away from nozzle
 
 // X and Y axis travel speed (mm/m) between probes
 #define XY_PROBE_SPEED 8000
@@ -804,15 +817,14 @@
 // @section machine
 
 // The size of the print bed
-#define HEROME_Y_OFFSET - 9 // Herome Y offset
-#define X_BED_SIZE 360
-#define Y_BED_SIZE 360 + HEROME_Y_OFFSET 
+#define X_BED_SIZE 340
+#define Y_BED_SIZE 345 
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
 #define Y_MIN_POS 0
 #define Z_MIN_POS 0
-#define X_MAX_POS X_BED_SIZE + 4
+#define X_MAX_POS X_BED_SIZE
 #define Y_MAX_POS Y_BED_SIZE
 #define Z_MAX_POS 410
 
@@ -902,14 +914,23 @@
 #if ENABLED(AUTO_BED_LEVELING_LINEAR) || ENABLED(AUTO_BED_LEVELING_BILINEAR)
 
   // Set the number of grid points per dimension.
-  #define GRID_MAX_POINTS_X 4
+  #define GRID_MAX_POINTS_X 8
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
   // Set the boundaries for probing (where the probe can reach).
-  #define LEFT_PROBE_BED_POSITION 50
-  #define RIGHT_PROBE_BED_POSITION 300
-  #define FRONT_PROBE_BED_POSITION 50
-  #define BACK_PROBE_BED_POSITION 300
+  #define LEFT_PROBE_BED_POSITION 10
+  #define RIGHT_PROBE_BED_POSITION 276
+  #define FRONT_PROBE_BED_POSITION 10
+  #define BACK_PROBE_BED_POSITION 340
+  //orig 50, 276, 50, 300 
+
+  
+  //#define LEFT_PROBE_BED_POSITION 10
+  //#define RIGHT_PROBE_BED_POSITION 276
+  //#define FRONT_PROBE_BED_POSITION 10
+  //#define BACK_PROBE_BED_POSITION 340
+
+
 
   // The Z probe minimum outer margin (to validate G29 parameters).
   #define MIN_PROBE_EDGE 10
@@ -1214,7 +1235,7 @@
  *
  * :{ 'en':'English', 'an':'Aragonese', 'bg':'Bulgarian', 'ca':'Catalan', 'cn':'Chinese', 'cz':'Czech', 'cz_utf8':'Czech (UTF8)', 'de':'German', 'el':'Greek', 'el-gr':'Greek (Greece)', 'es':'Spanish', 'eu':'Basque-Euskera', 'fi':'Finnish', 'fr':'French', 'gl':'Galician', 'hr':'Croatian', 'it':'Italian', 'kana':'Japanese', 'kana_utf8':'Japanese (UTF8)', 'nl':'Dutch', 'pl':'Polish', 'pt':'Portuguese', 'pt-br':'Portuguese (Brazilian)', 'pt-br_utf8':'Portuguese (Brazilian UTF8)', 'pt_utf8':'Portuguese (UTF8)', 'ru':'Russian', 'sk_utf8':'Slovak (UTF8)', 'tr':'Turkish', 'uk':'Ukrainian', 'zh_CN':'Chinese (Simplified)', 'zh_TW':'Chinese (Taiwan)', test':'TEST' }
  */
-// #define LCD_LANGUAGE en
+#define LCD_LANGUAGE en
 
 /**
  * LCD Character Set
